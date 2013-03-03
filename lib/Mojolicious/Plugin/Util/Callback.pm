@@ -134,7 +134,7 @@ access to data via plugins.
   $self->callback(get_cached_profile => sub {
     my ($c, $name) = @_;
     return $c->cache->get( $name );
-  }, -once);
+  });
 
   # Define multiple callbacks ...
   my $param = {
