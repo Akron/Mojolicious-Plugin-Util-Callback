@@ -44,7 +44,9 @@ access to data via plugins.
 =head2 callback
 
   # Call a callback
-  my $profile = $self->callback(get_cached_profile => 'Akron');
+  my $profile = $self->callback(
+    get_cached_profile => 'Akron'
+  );
 
   # Establish callback
   $self->callback(get_cached_profile => sub {
@@ -73,7 +75,8 @@ passed parameters from the call.
 To establish multiple callbacks, e.g. at the start of the
 registration routine of a plugin, pass an array reference
 of callback names followed by a hash reference containing
-the callbacks to the helper.
+the callbacks to the helper. All callback references will
+be deleted from the hash, while the rest will stay intact.
 
 An additional C<-once> flag when establishing indicates,
 that the callbacks are not allowed to be redefined later.
