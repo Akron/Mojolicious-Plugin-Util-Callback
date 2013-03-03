@@ -7,8 +7,9 @@ my %callback;
 
 # Register the plugin
 sub register {
-  my ($plugin, $mojo, $param) = @_;
+  my ($plugin, $mojo) = @_;
 
+  # Add 'callback' helper
   $mojo->helper(
     callback => sub {
       my $c = shift;
@@ -16,8 +17,12 @@ sub register {
 
       # Establish callbacks by array reference
       if (ref $name && ref $name eq 'ARRAY') {
+
+	# Param hash reference
 	my $param = shift;
-	my $flag = shift;
+
+	# -once flag
+	my $flag  = shift;
 
 	# For each given callback name
 	foreach (@$name) {
@@ -41,6 +46,8 @@ sub register {
 	my $cb = shift;
 	my $once = $_[0] && $_[0] eq '-once' ? 1 : 0;
 
+
+	# Callback exists
 	if (exists $callback{$name} && $callback{$name}->[1]) {
 	  $mojo->log->debug(
 	    qq{No allowance to redefine callback "$name"}
@@ -56,9 +63,9 @@ sub register {
 
       # Call callback
       else {
-	if (exists $callback{$name}) {
-	  return $callback{$name}->[0]->($c, @_);
-	};
+
+	# Call existing callback
+	return $callback{$name}->[0]->($c, @_) if exists $callback{$name};
 
 	# Return nothing
 	return;
@@ -67,7 +74,9 @@ sub register {
   );
 };
 
+
 1;
+
 
 __END__
 
@@ -117,7 +126,9 @@ access to data via plugins.
 =head2 callback
 
   # Call a callback
-  my $profile = $self->callback(get_cached_profile => 'Akron');
+  my $profile = $self->callback(
+    get_cached_profile => 'Akron'
+  );
 
   # Establish callback
   $self->callback(get_cached_profile => sub {
@@ -146,7 +157,8 @@ passed parameters from the call.
 To establish multiple callbacks, e.g. at the start of the
 registration routine of a plugin, pass an array reference
 of callback names followed by a hash reference containing
-the callbacks to the helper.
+the callbacks to the helper. All callback references will
+be deleted from the hash, while the rest will stay intact.
 
 An additional C<-once> flag when establishing indicates,
 that the callbacks are not allowed to be redefined later.

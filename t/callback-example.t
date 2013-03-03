@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-
 # Write a plugin
 package Mojolicious::Plugin::MyPlugin;
 use Mojo::Base 'Mojolicious::Plugin';
@@ -36,7 +35,7 @@ sub register {
 };
 
 # Mojolicious::Lite Plugin
-package main;
+package myapp;
 use Mojolicious::Lite;
 
 use lib '../lib';
@@ -54,8 +53,6 @@ plugin MyPlugin => {
   },
   tag => 'h1'
 };
-
-app->log->level('fatal');
 
 # Now you can use the helper in your Controller or Template
 get '/' => sub {
@@ -83,11 +80,14 @@ get '/Change' => sub {
   return $c->render(text => "Changed make_title helper\n");
 };
 
-# Use make_title helper with unchanged callback
-app->start('get','/');
+package main;
+use Test::More;
+use Test::Mojo;
 
-# Change make_title helper callback
-app->start('get','/Change');
+my $t = Test::Mojo->new('myapp');
 
-# Use make_title helper with updated callback
-app->start('get','/');
+$t->get_ok('/')->status_is(200)->content_is("<h1>This Is A Title</h1>\n");
+$t->get_ok('/Change')->status_is(200)->content_is("Changed make_title helper\n");
+$t->get_ok('/')->status_is(200)->content_is("<h1>This is a Title</h1>\n");
+
+done_testing;

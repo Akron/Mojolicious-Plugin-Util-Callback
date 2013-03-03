@@ -1,7 +1,7 @@
 lib/Mojolicious/Plugin/Util/Callback.pm
-example/callback.pl
 t/callback.t
 t/callback-param.t
+t/callback-example.t
 Changes
 MANIFEST
 LICENSE
