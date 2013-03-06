@@ -1,3 +1,7 @@
+0.03 2013-03-06
+        - Makes it possible to set '-once'
+          as a signature on initialization.
+
 0.02 2013-03-04
         - Improved docs by creating an example.
 

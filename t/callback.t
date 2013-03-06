@@ -4,7 +4,7 @@ use warnings;
 
 $|++;
 
-use lib '../../lib';
+use lib '../lib';
 
 use Test::More;
 use Test::Mojo;
