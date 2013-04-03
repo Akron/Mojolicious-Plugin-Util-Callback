@@ -122,6 +122,11 @@ be deleted from the hash, while the rest will stay intact.
   # In controller, app or template
   my $profile = $c->fetch_profile('Akron');
 
+If the callback to be defined by parameters is given the C<-once>
+flag, this will be saved as a signature. The next established
+callback can't be overwritten, no matter if it is established
+without a C<-once> flag.
+
 
 =head1 AVAILABILITY
 
