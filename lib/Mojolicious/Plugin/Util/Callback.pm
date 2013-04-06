@@ -102,7 +102,7 @@ __END__
 
 =head1 NAME
 
-Mojolicious::Plugin::Util::Callback - Reverse helpers for Mojolicious
+Mojolicious::Plugin::Util::Callback - Reverse Helpers for Mojolicious
 
 
 =head1 SYNOPSIS
