@@ -1,4 +1,4 @@
-0.03 2013-04-03
+0.03 2013-04-09
         - Makes it possible to set '-once'
           as a signature on initialization.
 	- Improved test suite.
