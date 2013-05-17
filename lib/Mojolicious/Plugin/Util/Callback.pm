@@ -228,6 +228,11 @@ callback can't be overwritten, no matter if it is established
 without a C<-once> flag.
 
 
+=head1 DEPENDENCIES
+
+L<Mojolicious> (best with SSL support).
+
+
 =head1 AVAILABILITY
 
   https://github.com/Akron/Mojolicious-Plugin-Util-Callback
