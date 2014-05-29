@@ -1,3 +1,6 @@
+0.04 2014-05-29
+	- Fixed License issue (now coherent Artistic License 2.0).
+
 0.03 2013-04-09
         - Makes it possible to set '-once'
           as a signature on initialization.

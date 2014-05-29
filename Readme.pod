@@ -128,6 +128,11 @@ callback can't be overwritten, no matter if it is established
 without a C<-once> flag.
 
 
+=head1 DEPENDENCIES
+
+L<Mojolicious> (best with SSL support).
+
+
 =head1 AVAILABILITY
 
   https://github.com/Akron/Mojolicious-Plugin-Util-Callback
@@ -135,9 +140,9 @@ without a C<-once> flag.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2013, L<Nils Diewald|http://nils-diewald.de/>.
+Copyright (C) 2013-2014, L<Nils Diewald|http://nils-diewald.de/>.
 
 This program is free software, you can redistribute it
-and/or modify it under the same terms as Perl.
+and/or modify it under the terms of the Artistic License version 2.0.
 
 =cut
