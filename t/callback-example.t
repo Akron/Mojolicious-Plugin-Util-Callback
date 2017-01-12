@@ -27,8 +27,8 @@ sub register {
       # Use the default tag helper
       return $c->tag(
 
-	# Release title_cb callback
-	$tag => $c->callback(title_cb => @_)
+        # Release title_cb callback
+        $tag => $c->callback(title_cb => @_)
       );
     }
   );
@@ -72,7 +72,9 @@ get '/Change' => sub {
     my $title = shift;
     my @array = split(/\s+/, $title);
     foreach (@array) {
-      $_ = ucfirst $_ unless $_ ~~ [qw/a is/];
+      unless ($_ eq 'a' || $_ eq 'is') {
+        $_ = ucfirst $_;
+      };
     };
     return join ' ', @array;
   });

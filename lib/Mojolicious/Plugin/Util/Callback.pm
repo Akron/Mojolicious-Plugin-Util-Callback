@@ -1,7 +1,7 @@
 package Mojolicious::Plugin::Util::Callback;
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 my %callback;
 
@@ -18,75 +18,75 @@ sub register {
       # Establish callbacks by array reference
       if (ref $name && ref $name eq 'ARRAY') {
 
-	# Param hash reference
-	my $param = shift;
+        # Param hash reference
+        my $param = shift;
 
-	# -once flag
-	my $flag  = shift;
+        # -once flag
+        my $flag  = shift;
 
-	# For each given callback name
-	foreach (@$name) {
+        # For each given callback name
+        foreach (@$name) {
 
-	  # Get callback
-	  my $cb = delete $param->{$_};
+          # Get callback
+          my $cb = delete $param->{$_};
 
-	  # Get callback
-	  if ($cb) {
+          # Get callback
+          if ($cb) {
 
-	    # Establish callback
-	    if (ref $cb && ref $cb eq 'CODE') {
-	      $mojo->callback($_, $cb, $flag);
-	    };
-	  }
+            # Establish callback
+            if (ref $cb && ref $cb eq 'CODE') {
+              $mojo->callback($_, $cb, $flag);
+            };
+          }
 
-	  elsif ($flag && $flag eq '-once') {
+          elsif ($flag && $flag eq '-once') {
 
-	    # Only allow the next establishement
-	    $callback{$_} = [undef, 1];
-	  };
-	};
+            # Only allow the next establishement
+            $callback{$_} = [undef, 1];
+          };
+        };
 
-	# Everything went fine
-	return 1;
+        # Everything went fine
+        return 1;
       }
 
       # Establish callback
       elsif (ref $_[0] && ref $_[0] eq 'CODE') {
-	my $cb = shift;
-	my $once = $_[0] && $_[0] eq '-once' ? 1 : 0;
+        my $cb = shift;
+        my $once = $_[0] && $_[0] eq '-once' ? 1 : 0;
 
-	# Callback exists
-	if (exists $callback{$name} &&   # Callback exists
-	      $callback{$name}->[0] &&   # Callback is defined
-		$callback{$name}->[1]) { # Callback is -once
-	  $mojo->log->debug(
-	    qq{No allowance to redefine callback "$name"}
-	  );
+        # Callback exists
+        if (exists $callback{$name} &&   # Callback exists
+              $callback{$name}->[0] &&   # Callback is defined
+              $callback{$name}->[1]) { # Callback is -once
+          $mojo->log->debug(
+            qq{No allowance to redefine callback "$name"}
+          );
 
-	  # Return nothing
-	  return;
-	};
+          # Return nothing
+          return;
+        };
 
-	# Establish callback
-	for ($callback{$name} //= []) {
-	  $_->[0] = $cb;
-	  $_->[1] ||= $once;
-	};
+        # Establish callback
+        for ($callback{$name} //= []) {
+          $_->[0] = $cb;
+          $_->[1] ||= $once;
+        };
 
-	return 1;
+        return 1;
       }
 
       # Release callback
       else {
 
-	# Release existing callback
-	my $cb;
-	if (exists $callback{$name} && ($cb = $callback{$name}->[0])) {
-	  return $cb->($c, @_) ;
-	};
+        # Release existing callback
+        my $cb;
+        if (exists $callback{$name} && ($cb = $callback{$name}->[0])) {
+          return $cb->($c, @_) ;
+        };
 
-	# Return nothing
-	return;
+        # Return nothing
+        return;
       };
     }
   );
@@ -240,7 +240,7 @@ L<Mojolicious> (best with SSL support).
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2013-2014, L<Nils Diewald|http://nils-diewald.de/>.
+Copyright (C) 2013-2017, L<Nils Diewald|http://nils-diewald.de/>.
 
 This program is free software, you can redistribute it
 and/or modify it under the terms of the Artistic License version 2.0.
