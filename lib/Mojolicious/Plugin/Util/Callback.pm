@@ -35,7 +35,7 @@ sub register {
 
             # Establish callback
             if (ref $cb && ref $cb eq 'CODE') {
-              $mojo->callback($_, $cb, $flag);
+              $c->app->callback($_, $cb, $flag);
             };
           }
 
@@ -59,7 +59,7 @@ sub register {
         if (exists $callback{$name} &&   # Callback exists
               $callback{$name}->[0] &&   # Callback is defined
               $callback{$name}->[1]) { # Callback is -once
-          $mojo->log->debug(
+          $c->app->log->debug(
             qq{No allowance to redefine callback "$name"}
           );
 
